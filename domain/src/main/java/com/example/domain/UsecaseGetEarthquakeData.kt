@@ -8,6 +8,10 @@ class UsecaseGetEarthquakeData(val repo: RemoteRepository) {
         return repo.getDemoData()
     }
 
+//    fun getDemoData(): EarthquakeDto? {
+//        return repo.getDemoData()
+//    }
+
     fun getEarthquakes(startTime: String): EarthquakeDto? {
         return repo.getEarthquakes(startTime)
     }

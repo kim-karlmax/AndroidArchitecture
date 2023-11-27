@@ -10,7 +10,7 @@ object RemoteService {
     private const val BASE_URL = "https://earthquake.usgs.gov/"
 
     val retrofitClient: Retrofit.Builder by lazy {
-        val levelType = Level.BODY
+        val levelType = Level.HEADERS
         val logging = HttpLoggingInterceptor()
         logging.setLevel(levelType)
 
