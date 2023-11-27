@@ -2,19 +2,15 @@ package com.example.data.repository
 
 import com.example.data.model.EarthquakeDto
 import com.example.data.remote.RemoteService
+import kotlinx.coroutines.flow.flow
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RemoteRepository {
 
-    fun getDemoData(): EarthquakeDto? {
-        val resp = RemoteService.remoteApiInterface.getDemoData().execute()
-        return if (resp.isSuccessful) {
-            resp.body()
-        } else {
-            null
-        }
+    suspend fun getDemoData() = flow {
+        emit(RemoteService.remoteApiInterface.getDemoData())
     }
 
     //    fun getDemoData(): EarthquakeDto? {

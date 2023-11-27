@@ -14,6 +14,5 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         vm = ViewModelProvider(this)[MainActivityViewModel::class.java]
-        vm.usecaseGetDemoData()
     }
 }
