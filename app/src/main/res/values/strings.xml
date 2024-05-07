@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Android Architecture Demo</string>
+    <string name="title_activity_main">Android Architecture Demo</string>
 </resources>

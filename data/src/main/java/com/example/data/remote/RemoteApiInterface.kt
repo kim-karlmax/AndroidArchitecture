@@ -6,7 +6,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface RemoteApiInterface {
-    @GET("fdsnws/event/1/query?format=geojson&starttime=2022-01-01&endtime=2023-01-01&minmag=6")
+    //@GET("fdsnws/event/1/query?format=geojson&starttime=2022-01-01&endtime=2023-01-01&minmag=6.5")
+    @GET("fdsnws/event/1/query?format=geojson&minmag=6.0")
     suspend fun getDemoData(): EarthquakeDto
 
     @GET("fdsnws/event/1/query?format=geojson&minmag=4")
