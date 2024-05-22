@@ -1,5 +1,6 @@
 package com.example.androidarchitecturedemo.views
 
+import android.os.Bundle
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,6 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.androidarchitecturedemo.screens.Screen
+import com.example.androidarchitecturedemo.screens.navigate
 import com.example.data.model.Feature
 import com.example.data.model.Geometry
 import com.example.data.model.Properties
@@ -21,7 +25,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun EarthquakeCard(data: Feature) {
+fun EarthquakeCard(data: Feature, navController: NavController?) {
     data.properties.place?.let {
         Box(
             modifier = Modifier
@@ -33,7 +37,13 @@ fun EarthquakeCard(data: Feature) {
                     .fillMaxSize(1f)
                     .padding(5.dp)
                     .background(MaterialTheme.colorScheme.primaryContainer)
-                    .clickable { Log.d("myapp", "clicked") }
+                    .clickable {
+                        Log.d("myapp", "clicked")
+                        val bundle = Bundle()
+                        bundle.putParcelable("item", data)
+                        navController?.navigate(route = Screen.MAP.name,
+                            args = bundle)
+                    }
             ) {
                 val dt = Instant.ofEpochMilli(data.properties.time).atZone(ZoneId.systemDefault())
                     .toLocalDateTime()
@@ -88,5 +98,5 @@ fun Preview_eq_card() {
         )
     )
 
-    EarthquakeCard(data = testdata)
+    EarthquakeCard(data = testdata, navController = null)
 }
