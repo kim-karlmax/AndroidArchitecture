@@ -1,22 +1,20 @@
 package com.example.androidarchitecturedemo.views
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.navigation.NavController
 import com.example.data.model.Feature
 import org.osmdroid.tileprovider.MapTileProviderBasic
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.tileprovider.util.SimpleInvalidationHandler
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 
 @Composable
-fun GoogleMapCard(data: Feature?, navController: NavController?) {
+fun GoogleMapCard(data: Feature?) {
     val geoPoint = remember {
         data?.let { GeoPoint(it.geometry.coordinates[1], it.geometry.coordinates[0]) }
     }
@@ -28,11 +26,15 @@ fun GoogleMapCard(data: Feature?, navController: NavController?) {
             MapView(context).apply {
                 // Do anything that needs to happen on the view init here
                 // For example set the tile source or add a click listener
+                controller.setCenter(geoPoint)
+
                 tileProvider = MapTileProviderBasic(context, TileSourceFactory.USGS_SAT)
                 tileProvider.tileRequestCompleteHandlers.add(SimpleInvalidationHandler(this))
-                setOnClickListener {
-                    TODO("Handle click here")
-                }
+                val startMarker = Marker(this)
+                startMarker.position = geoPoint
+                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                startMarker.title = data?.properties?.title
+                overlays.add(startMarker)
             }
         },
         update = { view ->
@@ -42,8 +44,4 @@ fun GoogleMapCard(data: Feature?, navController: NavController?) {
             view.controller.zoomTo(6.0)
         }
     )
-
-    Button(onClick = { navController?.popBackStack() }) {
-        Text(text = "Back")
-    }
 }
