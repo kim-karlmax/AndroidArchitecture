@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.androidarchitecturedemo.R
 import com.example.androidarchitecturedemo.views.GoogleMapCard
+import com.example.androidarchitecturedemo.views.OsmMapCard
 import com.example.data.model.Feature
 
 
@@ -24,7 +25,8 @@ fun ScreenEQMap(navController: NavController, data: Feature?) {
         verticalArrangement = Arrangement.Center
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-            GoogleMapCard(data = data)
+            //OsmMapCard(data = data)
+            GoogleMapCard(data)
             Button(onClick = { navController.popBackStack() }) {
                 Image(painterResource(id = R.drawable.ic_back), contentDescription = "back")
             }
