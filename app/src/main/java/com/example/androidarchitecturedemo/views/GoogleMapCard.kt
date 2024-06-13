@@ -13,18 +13,19 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun GoogleMapCard(data: Feature?) {
-    val latlng = data?.geometry?.let {
+    val berlinLatLng = LatLng(52.520008, 13.404954)
+    val pinLatLng = data?.geometry?.let {
         LatLng(it.coordinates[1], it.coordinates[0])
-    } ?: LatLng(52.520008, 13.404954)
+    } ?: berlinLatLng
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(latlng, 5f)
+        position = CameraPosition.fromLatLngZoom(pinLatLng, 5f)
     }
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
         cameraPositionState = cameraPositionState
     ) {
         Marker(
-            state = MarkerState(position = latlng),
+            state = MarkerState(position = pinLatLng),
             title = data?.properties?.title,
             snippet = data?.properties?.detail
         )
