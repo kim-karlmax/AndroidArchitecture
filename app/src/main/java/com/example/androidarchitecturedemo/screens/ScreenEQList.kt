@@ -22,14 +22,13 @@ import com.example.androidarchitecturedemo.views.EarthquakeCard
 fun ScreenEQList(navController: NavController, vm: MainActivityViewModel) {
 
     // next item: paging for list
-
-    val listEarthquakes = vm.fetchEarthquakeData().collectAsLazyPagingItems()
+    val eqPagingItems = vm.earthquakeState.collectAsLazyPagingItems()
 
     Surface(
         modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
     ) {
         LazyColumn {
-            if (listEarthquakes.loadState.refresh == LoadState.Loading) {
+            if (eqPagingItems.loadState.refresh == LoadState.Loading) {
                 item {
                     Text(
                         text = "Loading...",
@@ -40,14 +39,13 @@ fun ScreenEQList(navController: NavController, vm: MainActivityViewModel) {
                 }
             }
 
-            items(listEarthquakes.itemCount) {index ->
-                val item = listEarthquakes[index]
-                item?.let {
+            items(eqPagingItems.itemCount) {index ->
+                eqPagingItems[index]?.let { item ->
                     EarthquakeCard(item, navController)
                 }
             }
 
-            if (listEarthquakes.loadState.append == LoadState.Loading) {
+            if (eqPagingItems.loadState.append == LoadState.Loading) {
                 item {
                     CircularProgressIndicator(
                         modifier = Modifier
