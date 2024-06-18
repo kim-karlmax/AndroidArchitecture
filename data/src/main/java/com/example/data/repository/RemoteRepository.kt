@@ -10,17 +10,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RemoteRepository {
-//    suspend fun getEarthquakeData() = flow {
-//        emit(RemoteService.remoteApiInterface.getEarthquakeData())
-//    }
-
     fun getEarthquakeData() = Pager(
-        config = PagingConfig(
-            pageSize = 10,
-        ),
-        pagingSourceFactory = {
-            EarthquakePagingSource()
-        }
+        config = PagingConfig(pageSize = 10),
+        pagingSourceFactory = { EarthquakePagingSource() }
     ).flow
 
     fun getEarthquakes(startTime: String): EarthquakeDto? {

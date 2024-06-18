@@ -87,7 +87,7 @@ fun Preview_eq_card() {
             nst = 1,
             dmin = 1.0,
             rms = 1.0,
-            gap = 1,
+            gap = 1.0,
             magType = "test_mag_type",
             type = "test_type",
             title = "Test Title",

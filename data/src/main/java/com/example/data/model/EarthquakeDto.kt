@@ -51,7 +51,7 @@ data class Properties(
     val nst: Long,
     val dmin: Double,
     val rms: Double,
-    val gap: Long,
+    val gap: Double,
     val magType: String,
     val type: String,
     val title: String,

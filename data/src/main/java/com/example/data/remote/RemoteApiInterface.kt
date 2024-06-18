@@ -11,8 +11,8 @@ interface RemoteApiInterface {
     @GET("fdsnws/event/1/query?format=geojson&minmag=6.0")
      */
 
-    @GET("fdsnws/event/1/query?format=geojson&orderby=time&limit=1000")
-    suspend fun getEarthquakeData(@Query("offset") offset: Int): EarthquakeDto
+    @GET("fdsnws/event/1/query?format=geojson&orderby=time")
+    suspend fun getEarthquakeData(@Query("limit") pageSize: Int, @Query("offset") offset: Int): EarthquakeDto
 
     @GET("fdsnws/event/1/query?format=geojson&minmag=4")
     fun getEarthquakes(@Query("starttime") startTime: String): Call<EarthquakeDto>
